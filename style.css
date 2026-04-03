@@ -82,15 +82,17 @@ h1 {
   background: #2980b9;
 }
 
-/* Cart Sidebar - The buggy part */
+
+/* FIXED CART SIDEBAR & CHECKOUT BUTTON */
 .cart-sidebar {
   position: fixed;
-  right: -400px;
+  right: -100%;
   top: 0;
-  width: 400px;
+  width: 100%;
+  max-width: 420px;
   height: 100vh;
   background: white;
-  box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+  box-shadow: -8px 0 30px rgba(0,0,0,0.25);
   padding: 25px;
   overflow-y: auto;
   transition: right 0.4s ease;
@@ -118,18 +120,22 @@ h1 {
   border-top: 2px solid #eee;
 }
 
+/* FIXED CHECKOUT BUTTON - Better for mobile */
 .checkout-button {
   width: 100%;
   padding: 18px;
   background: #27ae60;
   color: white;
   border: none;
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: bold;
   border-radius: 8px;
   cursor: pointer;
   margin-top: 10px;
-  /* This is where the bug lives on mobile */
+  min-height: 56px;           /* Large touch target */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .checkout-button:hover {
@@ -137,31 +143,35 @@ h1 {
 }
 
 /* Mobile responsiveness - intentionally broken for demo */
+/* RESPONSIVE FIXES */
 @media (max-width: 768px) {
   .product-grid {
-    grid-template-columns: 1fr; /* Good */
+    grid-template-columns: 1fr;
   }
 
   .cart-sidebar {
-    width: 100%;           /* Should be 100% on mobile */
-    right: -100%;          /* But we keep it fixed width on small screens */
-    /* This causes overflow and bad UX */
+    width: 100%;           /* Full width on mobile */
+    max-width: 100%;
+    padding: 20px;
   }
 
   .checkout-button {
-    font-size: 1.1rem;
-    padding: 15px;
-    /* No proper mobile touch target */
+    font-size: 1.2rem;
+    padding: 16px;
+    min-height: 60px;      /* Even larger on small screens */
+  }
+
+  body {
+    padding: 10px;
   }
 }
 
-/* Even worse on very small screens */
 @media (max-width: 480px) {
   header {
-    padding: 15px;
+    padding: 12px 15px;
   }
-  
-  .cart-sidebar {
-    width: 380px; /* Still fixed width on tiny phones */
+      
+  h1 {
+    font-size: 1.6rem;
   }
 }
