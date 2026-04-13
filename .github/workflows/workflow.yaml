@@ -1,0 +1,35 @@
+name: CI/CD Pipeline
+on: [push] # Pillar 1: The Trigger
+
+
+jobs: # Pillar 2: The Jobs
+  build-and-test: # The CI Job
+    runs-on: ubuntu-latest # The Runner
+    steps: # Pillar 3: The Steps
+      - uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Build Project
+        run: npm run build
+
+
+  deploy-to-site: # The CD Job
+    needs: build-and-test # The Safety Lock
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+
+
+
+
