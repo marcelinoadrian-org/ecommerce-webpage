@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: CI/CD - Build, Test & Deploy to GitHub Pages
 
 on:
   push:
@@ -7,7 +7,32 @@ on:
     branches: [ main ]
 
 jobs:
+  # ── Build & Test Job (runs on every push and every PR)
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build project
+        run: npm run build
+
+  # ── Deploy Job (only runs after test succeeds + only on main branch)
   deploy:
+    needs: test                     # waits for the test job to pass
+    if: github.ref == 'refs/heads/main'   # only deploy on push to main
     runs-on: ubuntu-latest
     
     permissions:
@@ -21,7 +46,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # cache: 'npm'   ← removed (we don't have a lockfile yet)
 
       - name: Install dependencies
         run: npm install
