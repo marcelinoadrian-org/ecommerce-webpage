@@ -1,0 +1,12 @@
+{
+  "name": "ecommerce-webpage",
+  "version": "1.0.0",
+  "description": "Simple static ecommerce webpage",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'No build step needed for static site'",
+    "test": "echo 'No tests configured'"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}

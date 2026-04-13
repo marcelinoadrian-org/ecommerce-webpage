@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BuggyCart - Demo Store</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>BuggyCart</h1>
+    <div class="cart-icon">
+      🛒 <span id="cart-count">0</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="products">
+      <h2>Featured Products</h2>
+      <div class="product-grid">
+        <!-- Product 1 -->
+        <div class="product-card">
+          <img src="https://picsum.photos/300/200?random=1" alt="Wireless Headphones">
+          <h3>Wireless Headphones</h3>
+          <p class="price">$89.99</p>
+          <button class="add-to-cart" data-id="1" data-name="Wireless Headphones" data-price="89.99">
+            Add to Cart
+          </button>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card">
+          <img src="https://picsum.photos/300/200?random=2" alt="Smart Watch">
+          <h3>Smart Watch Pro</h3>
+          <p class="price">$199.99</p>
+          <button class="add-to-cart" data-id="2" data-name="Smart Watch Pro" data-price="199.99">
+            Add to Cart
+          </button>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card">
+          <img src="https://picsum.photos/300/200?random=3" alt="Mechanical Keyboard">
+          <h3>Mechanical Keyboard</h3>
+          <p class="price">$129.99</p>
+          <button class="add-to-cart" data-id="3" data-name="Mechanical Keyboard" data-price="129.99">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+      <h2>Your Items</h2>
+      <div id="cart-items"></div>
+      <div class="cart-total">
+        <strong>Total: $<span id="total-amount">0.00</span></strong>
+      </div>
+      <button id="checkout-btn" class="checkout-button">
+        Proceed to Checkout
+      </button>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
