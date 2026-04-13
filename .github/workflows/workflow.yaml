@@ -31,7 +31,7 @@ jobs:
 
   # ── Deploy Job (only runs after test succeeds + only on main branch)
   deploy:
-    needs: test                     # waits for the test job to pass
+    needs: build-and-test                     # waits for the test job to pass
     if: github.ref == 'refs/heads/main'   # only deploy on push to main
     runs-on: ubuntu-latest
     
