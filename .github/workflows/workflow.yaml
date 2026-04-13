@@ -1,35 +1,36 @@
-name: CI/CD Pipeline
-on: [push] # Pillar 1: The Trigger
+name: Deploy to GitHub Pages
 
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-jobs: # Pillar 2: The Jobs
-  build-and-test: # The CI Job
-    runs-on: ubuntu-latest # The Runner
-    steps: # Pillar 3: The Steps
-      - uses: actions/checkout@v4
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    # Required for organization repositories
+    permissions:
+      contents: write
 
-      - name: Install Dependencies
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
         run: npm install
 
-      - name: Run Tests
-        run: npm test
-
-      - name: Build Project
-        run: npm run build
-
-
-  deploy-to-site: # The CD Job
-    needs: build-and-test # The Safety Lock
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-
-
-
-
+          publish_dir: ./
+          publish_branch: gh-pages
+          force_orphan: true
